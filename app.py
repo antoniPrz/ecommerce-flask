@@ -60,10 +60,41 @@ def get_product_by_id(product_id):
        return jsonify({
           "id": product.id,
           "name":product.name,
+          "price":product.price,
           "description":product.description
 
        })
     return "Product not found" , 404
+
+
+#Ruta para actualizar un producto utilizando PUT
+
+#Colocar la ruta
+@app.route('/api/products/update/<int:product_id>', methods = ['PUT'])
+
+#Crear funcion upgrade_protuct
+def upgrade_product(product_id):
+   product = Product.query.get(product_id)
+   if not product:
+      return "product not found" , 404
+   else:
+      data = request.json
+      return  jsonify({
+          "id": product.id,
+          "name":product.name,
+          "price":product.price,
+          "description":product.description
+
+       })
+   
+
+  # Buscar el producto y verificar si existe por id
+  # Si no existe devolver (return) not found producto no encontrado
+  # Si existe recuperar la informacion que viene en el body del request
+  # Pasar la info a la base de datos
+  # Grabar en la base de datos con commit 
+# Devolver (return) mensaje producto actualizado con exito y la nueva informacion, codigo 200.
+
 
 #Ruta raiz (pagina inicial) es la funcion que se ejecutara el hacer request
 @app.route('/')
